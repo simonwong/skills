@@ -43,13 +43,13 @@ Skills 分为两种调用方式：
 
 ### Writing
 
-中文写作技能。均为 model-invoked。
+中文写作技能。
 
-| Skill | 用途 |
-| --- | --- |
-| `rewrite-en2zh` | 理解英文原意后，用自然的简体中文重新表达。 |
-| `write-article` | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
-| `writing-ai-check` | 诊断 AI 味及其对阅读的影响，获准后改写，保留事实、原意和作者声音。 |
+| Skill | 调用方式 | 用途 |
+| --- | --- | --- |
+| `rewrite-en2zh` | model-invoked | 理解英文原意后，用自然的简体中文重新表达。 |
+| `write-article` | user-invoked | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
+| `writing-ai-check` | user-invoked | 诊断 AI 味及其对阅读的影响，获准后改写，保留事实、原意和作者声音。 |
 
 `writing-ai-check` 可独立使用。`write-article` 未安装它时仍可完成文章，并说明专项检查未执行；需要完整组合流程时同时安装两者。
 
@@ -64,20 +64,20 @@ Skills 分为两种调用方式：
 
 ### Engineering
 
-工程质量技能。均为 model-invoked。
+工程质量技能。
 
-| Skill | 用途 |
-| --- | --- |
-| `code-simplifier` | 简化最近修改的代码，提高可读性、一致性和可维护性，同时保持行为不变。 |
+| Skill | 调用方式 | 用途 |
+| --- | --- | --- |
+| `code-simplifier` | model-invoked | 简化最近修改的代码，提高可读性、一致性和可维护性，同时保持行为不变。 |
 
 ### Misc
 
-通用工具。目前包含 2 个 user-invoked skill：
+通用工具。
 
-| Skill | 用途 | 调用示例 |
-| --- | --- | --- |
-| `configure-skill-invocation` | 选择全局或项目 skills，将其改为仅显式调用。 | `$configure-skill-invocation global` / `$configure-skill-invocation project` |
-| `fable-orchestrate` | 主线程只做需求澄清、方案拆解、任务分发、结果验收和难题攻关，实现类工作下发给 subagent。 | `/fable-orchestrate` / `/fable-orchestrate gpt` / `/fable-orchestrate herdr codex` |
+| Skill | 调用方式 | 用途 | 调用示例 |
+| --- | --- | --- | --- |
+| `configure-skill-invocation` | user-invoked | 选择全局或项目 skills，将其改为仅显式调用。 | `$configure-skill-invocation global` / `$configure-skill-invocation project` |
+| `fable-orchestrate` | user-invoked | 主线程只做需求澄清、方案拆解、任务分发、结果验收和难题攻关，实现类工作下发给 subagent。 | `/fable-orchestrate` / `/fable-orchestrate gpt` / `/fable-orchestrate herdr codex` |
 
 `configure-skill-invocation` 不传 `global` 或 `project` 时，会先询问作用范围，再列出候选项供选择。`fable-orchestrate` 仅供 Claude Code 使用，不传参数时默认用 `opus`。`gpt` 和 `herdr <kind>` 均为可选执行路线：选择 `gpt` 时才需要 `codex:codex-rescue`；选择 `herdr <kind>` 时才需要 Herdr-managed session 与 `herdr` skill。
 
