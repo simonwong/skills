@@ -107,6 +107,9 @@ Skills 分为两种调用方式：
 | Skill | 调用方式 | 用途 |
 | --- | :---: | --- |
 | `code-simplifier` | 🤖 | 简化最近修改的代码，提高可读性、一致性和可维护性，同时保持行为不变。 |
+| `ship-pr` | 👤 | 把当前改动按意图分批提交，再走开 PR、合并、删分支的完整流程。 |
+
+`ship-pr` 先判断哪些改动属于本次 PR，无关的脏文件保持不提交；已在功能分支且无未提交改动时，直接从开 PR 开始。合并被 CI、review 或冲突挡住时会停下并报告，不强推。
 
 ### 🧩 Misc
 
@@ -128,7 +131,8 @@ skills/
 │   ├── write-article/
 │   └── writing-ai-check/
 ├── engineering/
-│   └── code-simplifier/
+│   ├── code-simplifier/
+│   └── ship-pr/
 └── misc/
     ├── configure-skill-invocation/
     └── fable-orchestrate/
