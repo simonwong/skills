@@ -48,6 +48,19 @@ Skills 分为两种调用方式：
 | Skill | 用途 |
 | --- | --- |
 | `rewrite-en2zh` | 理解英文原意后，用自然的简体中文重新表达。 |
+| `write-article` | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
+| `writing-ai-check` | 诊断 AI 味及其对阅读的影响，获准后改写，保留事实、原意和作者声音。 |
+
+`writing-ai-check` 可独立使用。`write-article` 未安装它时仍可完成文章，并说明专项检查未执行；需要完整组合流程时同时安装两者。
+
+`write-article` 与 `writing-ai-check` 的实现参考了：
+
+- [stop-slop](https://github.com/hardikpandya/stop-slop)
+- [human-writing](https://github.com/KKKKhazix/human-writing)
+- [dbskill](https://github.com/dontbesilent2025/dbskill)
+- [khazix-writer](https://github.com/KKKKhazix/khazix-skills)
+- [Dan Koe 的写作方法](https://thedankoe.com/letters/the-greatest-skill-of-the-21st-century/)
+- [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)
 
 ### Engineering
 
@@ -73,7 +86,9 @@ Skills 分为两种调用方式：
 ```text
 skills/
 ├── writing/
-│   └── rewrite-en2zh/
+│   ├── rewrite-en2zh/
+│   ├── write-article/
+│   └── writing-ai-check/
 ├── engineering/
 │   └── code-simplifier/
 └── misc/
@@ -93,16 +108,13 @@ in-progress/
 
 Matt Pocock 的日常工程技能：grill、TDD、code review、架构改进等。小、可组合，强调先对齐、再写代码，而不是把流程整包交给 agent。
 
-
 ### [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md)
 
 HumanLayer 的可视化沟通 skill。用伪代码、调用树、文件树、Mermaid、diff 和轻量 HTML 讲清当前话题，少写长文、多看结构。
 
-
 ### [impeccable](https://github.com/pbakaus/impeccable)
 
 给 AI coding agent 的设计语言：一个 skill、二十多条命令，再加确定性检测规则，专门打掉 Inter / 紫蓝渐变 / 卡片套卡片那一套前端 slop。
-
 
 ### [Taste Skill](https://www.tasteskill.dev/)
 
