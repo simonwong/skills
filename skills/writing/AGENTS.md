@@ -1,42 +1,8 @@
 # Writing Skills
 
-These skills form a Simplified Chinese writing workflow:
+Simplified Chinese writing skills. Each skill is standalone and shares no runtime data with the others.
 
-`collect (style-extract, material-ingest) -> retrieve (material-retrieve) -> create (compose) -> polish (rewrite, title-gen)`
-
-`rewrite-en2zh` is standalone.
-
-## Shared Data Contract
-
-The connected writing workflow skills read and write `./writing-workspace/` at runtime. `rewrite-en2zh` does not use it.
-
-```text
-writing-workspace/
-├── styles/
-│   ├── my_style.json
-│   ├── index.jsonl
-│   └── entries/sty_*.json
-├── materials/
-│   ├── index.jsonl
-│   └── entries/mat_*.json
-└── drafts/
-```
-
-- Store one JSON object per line in index files.
-- Use `sty_YYYYMMDD_NNN` and `mat_YYYYMMDD_NNN` entry IDs.
-- Escape quotes, backslashes, and newlines in JSON text fields.
-
-## Dependencies
-
-- `style-extract` writes `styles/my_style.json`, `styles/index.jsonl`, and `styles/entries/`.
-- `material-ingest` writes `materials/index.jsonl` and `materials/entries/`.
-- `material-retrieve` reads `materials/index.jsonl` and `materials/entries/`.
-- `compose` reads `styles/my_style.json` and `materials/index.jsonl`, then retrieves relevant material.
-- `rewrite` reads `styles/my_style.json`.
-- `title-gen` may read `styles/my_style.json` for title preferences.
-- `rewrite-en2zh` has no shared-data dependency.
-
-When changing a shared schema, update every producer and consumer in the same change.
+Unfinished writing skills live in `../../in-progress/`; read its `AGENTS.md` before touching them.
 
 ## Writing Rules
 
@@ -45,3 +11,7 @@ When changing a shared schema, update every producer and consumer in the same ch
 - Quote version strings, for example `"1.2.0"`.
 - Include concrete Chinese trigger phrases in `description`.
 - Bump `metadata.version` whenever a writing skill's `SKILL.md` changes.
+
+## 更新 write-article 的个人风格
+
+用户要求更新 `write-article/references/voice.md` 时：用他认可的文章、段落或实际修改反馈校准措辞，提炼可复用的写法，保留有代表性的例子；将表达方式与例子中的事实、立场分开使用。

@@ -22,25 +22,17 @@ npx skills@latest add simonwong/skills
 
 ## 为什么有这些 Skills
 
-### 1. Agent 写得对，但不像你
+### 1. 英文内容翻成中文总带着翻译腔
 
-先用 `style-extract` 建立个人风格档案。`compose` 和 `rewrite` 会复用它，让创作和改稿保持同一种声音。
+`rewrite-en2zh` 先理解英文原意，再脱离英文外壳用中文重新表达，保留 Markdown 格式和 AI 专有名词。
 
-### 2. 好素材收过就丢
-
-`material-ingest` 把文章拆成可复用的观点、数据、案例和金句；`material-retrieve` 按主题、标签、类型找回它们。
-
-### 3. 写作步骤散在不同提示词里
-
-Writing 组把流程拆成可组合的小技能：
-
-`收集 -> 检索 -> 创作 -> 润色 -> 标题`
-
-每个 skill 可独立使用，也可共享 `./writing-workspace/` 串成完整流程。
-
-### 4. 有些 Skill 不该被 Agent 自动调用
+### 2. 有些 Skill 不该被 Agent 自动调用
 
 `configure-skill-invocation` 扫描全局或当前项目的 skills，让你选择哪些改为仅显式调用，并一次性补齐 `SKILL.md` 和 Codex 的调用策略。
+
+### 3. 主线程该指挥，不该亲自写代码
+
+`fable-orchestrate` 让主线程只做需求澄清、方案拆解、任务分发和验收，实现类工作下发给 subagent。
 
 ## Reference
 
@@ -55,21 +47,20 @@ Skills 分为两种调用方式：
 
 | Skill | 用途 |
 | --- | --- |
-| `style-extract` | 分析文章风格，建立或更新个人风格档案。 |
-| `material-ingest` | 提取观点、数据、案例、金句等素材并入库。 |
-| `material-retrieve` | 按主题、标签、类型检索素材库。 |
-| `compose` | 结合主题、素材库和个人风格创作中文内容。 |
-| `rewrite` | 诊断并改写文章，去除 AI 感，统一个人文风。 |
-| `title-gen` | 生成多种策略、适配不同平台的候选标题。 |
 | `rewrite-en2zh` | 理解英文原意后，用自然的简体中文重新表达。 |
+| `write-article` | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
+| `writing-ai-check` | 诊断 AI 味及其对阅读的影响，获准后改写，保留事实、原意和作者声音。 |
 
-推荐顺序：
+`writing-ai-check` 可独立使用。`write-article` 未安装它时仍可完成文章，并说明专项检查未执行；需要完整组合流程时同时安装两者。
 
-1. 用 `style-extract` 分析 3–5 篇文章。
-2. 用 `material-ingest` 积累素材。
-3. 用 `compose` 创作。
-4. 用 `rewrite` 润色。
-5. 用 `title-gen` 生成标题。
+`write-article` 与 `writing-ai-check` 的实现参考了：
+
+- [stop-slop](https://github.com/hardikpandya/stop-slop)
+- [human-writing](https://github.com/KKKKhazix/human-writing)
+- [dbskill](https://github.com/dontbesilent2025/dbskill)
+- [khazix-writer](https://github.com/KKKKhazix/khazix-skills)
+- [Dan Koe 的写作方法](https://thedankoe.com/letters/the-greatest-skill-of-the-21st-century/)
+- [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)
 
 ### Engineering
 
@@ -95,15 +86,19 @@ Skills 分为两种调用方式：
 ```text
 skills/
 ├── writing/
-│   └── <writing-skill>/
+│   ├── rewrite-en2zh/
+│   ├── write-article/
+│   └── writing-ai-check/
 ├── engineering/
 │   └── code-simplifier/
 └── misc/
     ├── configure-skill-invocation/
     └── fable-orchestrate/
+in-progress/
+└── <未完成的 skill>/
 ```
 
-每个叶子目录都是一个可独立安装的 skill；分组目录本身不包含 `SKILL.md`。
+每个叶子目录都是一个可独立安装的 skill；分组目录本身不包含 `SKILL.md`。`in-progress/` 存放尚未完成、暂不对外提供的 skill，不在安装列表中。
 
 ## 推荐 Skills
 
@@ -113,16 +108,13 @@ skills/
 
 Matt Pocock 的日常工程技能：grill、TDD、code review、架构改进等。小、可组合，强调先对齐、再写代码，而不是把流程整包交给 agent。
 
-
 ### [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md)
 
 HumanLayer 的可视化沟通 skill。用伪代码、调用树、文件树、Mermaid、diff 和轻量 HTML 讲清当前话题，少写长文、多看结构。
 
-
 ### [impeccable](https://github.com/pbakaus/impeccable)
 
 给 AI coding agent 的设计语言：一个 skill、二十多条命令，再加确定性检测规则，专门打掉 Inter / 紫蓝渐变 / 卡片套卡片那一套前端 slop。
-
 
 ### [Taste Skill](https://www.tasteskill.dev/)
 

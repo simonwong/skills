@@ -8,9 +8,9 @@ This repository contains composable skills organized by purpose:
 - `skills/engineering/`: Code quality and engineering workflow skills.
 - `skills/misc/`: General-purpose agent utilities.
 
-Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`.
+Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`. Unfinished skills live at `in-progress/<skill-name>/` and are not published.
 
-Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md` for the shared data contract, dependency graph, and writing-specific rules.
+Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md` for writing-specific rules. Before changing anything under `in-progress/`, read `in-progress/AGENTS.md` for the shared data contract and dependency graph.
 
 ## Working Rules
 
@@ -25,3 +25,13 @@ Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md
 - Validate every changed `SKILL.md` against the [Agent Skills Specification](https://agentskills.io/specification), allowing documented client-specific frontmatter extensions such as `disable-model-invocation`.
 - Check links and paths referenced by changed instructions.
 - Run `git diff --check` before committing.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues (`simonwong/skills`), accessed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.
