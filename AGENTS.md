@@ -25,3 +25,13 @@ Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md
 - Validate every changed `SKILL.md` against the [Agent Skills Specification](https://agentskills.io/specification), allowing documented client-specific frontmatter extensions such as `disable-model-invocation`.
 - Check links and paths referenced by changed instructions.
 - Run `git diff --check` before committing.
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in this repo's GitHub Issues (`simonwong/skills`), accessed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` at the repo root plus `docs/adr/`. See `docs/agents/domain.md`.
