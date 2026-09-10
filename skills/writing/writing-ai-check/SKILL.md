@@ -2,9 +2,10 @@
 name: writing-ai-check
 description: 诊断简体中文稿件的 AI 味，按用户偏好改写。用于“检查 AI 味”“读着太像 AI”“去掉 AI 痕迹”。
 license: MIT
+disable-model-invocation: true
 metadata:
   author: simonwong
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # 写作 AI 味检查

@@ -9,7 +9,7 @@
 
 ## 决策
 
-拆成两个 model-invoked skill。
+拆成两个 skill，调用方式见 ADR-0005。
 
 - `write-article` 负责材料、内容、讲述与表达，覆盖从想法到成稿的协作过程。
 - `writing-ai-check` 负责表达诊断与获准后的改写，输入是一篇稿件，不依赖写作过程。
