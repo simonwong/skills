@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ship PR"
+  short_description: "Commit in batches, then open, merge, and clean up a pull request"
+  default_prompt: "Use $ship-pr to commit the current work, open a pull request, merge it, and delete the branch."
+
+policy:
+  allow_implicit_invocation: false
