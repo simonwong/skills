@@ -30,7 +30,7 @@ Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md
 
 ### Issue tracker
 
-Issues live in this repo's GitHub Issues (`simonwong/skills`), accessed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+Track maintainer work in Linear. Before creating, reading, or updating tickets, read `docs/agents/issue-tracker.md`.
 
 ### Domain docs
 
