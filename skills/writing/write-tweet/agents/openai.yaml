@@ -1,0 +1,7 @@
+interface:
+  display_name: "Write Tweet"
+  short_description: "写简体中文 X 推文，支持短推与长推"
+  default_prompt: "Use $write-tweet 写这条推文。"
+
+policy:
+  allow_implicit_invocation: false

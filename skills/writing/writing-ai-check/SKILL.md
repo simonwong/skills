@@ -5,7 +5,7 @@ license: MIT
 disable-model-invocation: true
 metadata:
   author: simonwong
-  version: "0.3.0"
+  version: "0.3.1"
 ---
 
 # 写作 AI 味检查
