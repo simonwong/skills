@@ -83,8 +83,9 @@ Skills 分为两种调用方式：
 | `rewrite-en2zh` | 🤖 | 理解英文原意后，用自然的简体中文重新表达。 |
 | `write-article` | 👤 | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
 | `writing-ai-check` | 👤 | 诊断 AI 味及其对阅读的影响，获准后改写，保留事实、原意和作者声音。 |
+| `write-tweet` | 👤 | 写 X 推文。自己写的零散文字只顺稿；外部材料整理成文，`short` / `long` 指定长短，成文后调用 `writing-ai-check`。 |
 
-`writing-ai-check` 可独立使用。`write-article` 未安装它时仍可完成文章，并说明专项检查未执行；需要完整组合流程时同时安装两者。
+`writing-ai-check` 可独立使用。`write-article` 和 `write-tweet` 未安装它时仍可完成稿件，并说明专项检查未执行；需要完整组合流程时一并安装。
 
 <details>
 <summary><code>write-article</code> 与 <code>writing-ai-check</code> 的实现参考</summary>
@@ -96,6 +97,8 @@ Skills 分为两种调用方式：
 - [dbskill](https://github.com/dontbesilent2025/dbskill)
 - [khazix-writer](https://github.com/KKKKhazix/khazix-skills)
 - [Dan Koe 的写作方法](https://thedankoe.com/letters/the-greatest-skill-of-the-21st-century/)
+- [宝玉：去掉 AI 味](https://baoyu.io/blog/2026-02-14/remove-ai-writing-flavor)
+- [Paul Graham: Write Like You Talk](https://paulgraham.com/talk.html)
 - [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)
 
 </details>
@@ -129,6 +132,7 @@ skills/
 ├── writing/
 │   ├── rewrite-en2zh/
 │   ├── write-article/
+│   ├── write-tweet/
 │   └── writing-ai-check/
 ├── engineering/
 │   ├── code-simplifier/
