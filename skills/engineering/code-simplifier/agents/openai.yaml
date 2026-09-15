@@ -1,0 +1,7 @@
+interface:
+  display_name: "Code Simplifier"
+  short_description: "Simplify and refine recently modified code"
+  default_prompt: "Use $code-simplifier to simplify and refine recently modified code."
+
+policy:
+  allow_implicit_invocation: false

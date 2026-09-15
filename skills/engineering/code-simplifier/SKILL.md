@@ -2,6 +2,7 @@
 name: code-simplifier
 description: Simplifies and refines code for clarity, consistency, and maintainability while preserving all functionality. Focuses on recently modified code unless instructed otherwise.
 license: MIT
+disable-model-invocation: true
 metadata:
   author: anthropics
   version: "1.0.0"
