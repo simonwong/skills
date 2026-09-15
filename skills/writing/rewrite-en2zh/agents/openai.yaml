@@ -1,0 +1,7 @@
+interface:
+  display_name: "Rewrite En2zh"
+  short_description: "将英文内容重写为简体中文"
+  default_prompt: "Use $rewrite-en2zh 将这段英文重写为中文。"
+
+policy:
+  allow_implicit_invocation: false
