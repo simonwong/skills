@@ -82,7 +82,7 @@ Skills 分为两种调用方式：
 | --- | :---: | --- |
 | `rewrite-en2zh` | 👤 | 理解英文原意后，用自然的简体中文重新表达。 |
 | `write-article` | 👤 | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
-| `writing-ai-check` | 👤 | 按 23 条编号痕迹诊断 AI 味，每处给改后文字，获准后出定稿，信息不增不减。只管 AI 味，不评内容和个人风格。 |
+| `writing-ai-check` | 🤖 | 按 23 条编号痕迹诊断 AI 味，每处给改后文字，获准后出定稿，信息不增不减。只管 AI 味，不评内容和个人风格。 |
 | `write-tweet` | 👤 | 写 X 推文。自己写的零散文字只顺稿；外部材料整理成文，`short` / `long` 指定长短，成文后调用 `writing-ai-check`。 |
 
 `writing-ai-check` 可独立使用。`write-article` 和 `write-tweet` 未安装它时仍可完成稿件，并说明专项检查未执行；需要完整组合流程时一并安装。
