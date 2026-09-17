@@ -79,7 +79,7 @@ Skills 分为两种调用方式：
 | Skill | 调用方式 | 用途 |
 | --- | :---: | --- |
 | `rewrite-en2zh` | 👤 | 理解英文原意后，用自然的简体中文重新表达。 |
-| `write-article` | 👤 | 围绕想法或草稿协作写文章，共同确认内容与讲述方向，成文后调用 `writing-ai-check`。 |
+| `write-article` | 👤 | 从想法、素材或草稿出发协作写文章：定选题方向、补素材、设计提纲与节奏、成文、修改，成文后调用 `writing-ai-check`。 |
 | `writing-ai-check` | 🤖 | 按 23 条编号痕迹诊断 AI 味，每处给改后文字，获准后出定稿，信息不增不减。只管 AI 味，不评内容和个人风格。 |
 | `write-tweet` | 👤 | 写 X 推文。自己写的零散文字只顺稿；外部材料整理成文，`short` / `long` 指定长短，成文后调用 `writing-ai-check`。 |
 
@@ -97,6 +97,8 @@ Skills 分为两种调用方式：
 - [dbskill](https://github.com/dontbesilent2025/dbskill)
 - [khazix-writer](https://github.com/KKKKhazix/khazix-skills)
 - [Dan Koe 的写作方法](https://thedankoe.com/letters/the-greatest-skill-of-the-21st-century/)
+- 影视飓风 Tim 的 HKRR（快乐、知识、共鸣、节奏）
+- 潘乱的三种转发动机（对我有用、感同身受、喜闻乐见）
 - [宝玉：去掉 AI 味](https://baoyu.io/blog/2026-02-14/remove-ai-writing-flavor)
 - [Paul Graham: Write Like You Talk](https://paulgraham.com/talk.html)
 - [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines/blob/master/README.zh-Hans.md)
