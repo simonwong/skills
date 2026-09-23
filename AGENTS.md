@@ -8,7 +8,7 @@ This repository contains composable skills organized by purpose:
 - `skills/engineering/`: Code quality and engineering workflow skills.
 - `skills/misc/`: General-purpose agent utilities.
 
-Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`. Unfinished skills live at `in-progress/<skill-name>/` and are not published.
+Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`. Unfinished skills live at `in-progress/<skill-name>/` and are not published. Test cases live at `evals/<skill-name>/` and are not installed with the skill.
 
 Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md` for writing-specific rules. Before changing anything under `in-progress/`, read `in-progress/AGENTS.md` for the shared data contract and dependency graph.
 
@@ -24,6 +24,7 @@ Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md
 
 - Validate every changed `SKILL.md` against the [Agent Skills Specification](https://agentskills.io/specification), allowing documented client-specific frontmatter extensions such as `disable-model-invocation`.
 - Check links and paths referenced by changed instructions.
+- When a skill has cases under `evals/<skill-name>/`, run them after changing its rules, flow, or output format.
 - Run `git diff --check` before committing.
 
 ## Agent skills

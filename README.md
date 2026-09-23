@@ -141,9 +141,11 @@ skills/
     └── fable-orchestrate/
 in-progress/
 └── <未完成的 skill>/
+evals/
+└── writing-ai-check/
 ```
 
-每个叶子目录都是一个可独立安装的 skill；分组目录本身不包含 `SKILL.md`。`in-progress/` 存放尚未完成、暂不对外提供的 skill，不在安装列表中。
+每个叶子目录都是一个可独立安装的 skill；分组目录本身不包含 `SKILL.md`。`in-progress/` 存放尚未完成、暂不对外提供的 skill，不在安装列表中。`evals/` 存放 skill 的测试用例，不随 skill 安装。
 
 ## 推荐 Skills
 
