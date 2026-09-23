@@ -118,6 +118,7 @@ Skills 分为两种调用方式：
 
 | Skill | 调用方式 | 用途 | 调用示例 |
 | --- | :---: | --- | --- |
+| `codex-wechat-cover` | 🤖 | 从文章提取封面关键词，按主题或自由搭配选色，用 `image_gen` 生成统一 shader 风格封面。 | `$codex-wechat-cover 为这篇文章生成封面` |
 | `configure-skill-invocation` | 👤 | 选择全局或项目 skills，将其改为仅显式调用。 | `$configure-skill-invocation global`<br>`$configure-skill-invocation project` |
 | `fable-orchestrate` | 👤 | 主线程只做需求澄清、方案拆解、任务分发、结果验收和难题攻关，实现类工作下发给 subagent。 | `/fable-orchestrate`<br>`/fable-orchestrate gpt`<br>`/fable-orchestrate herdr codex` |
 
@@ -136,6 +137,7 @@ skills/
 │   ├── code-simplifier/
 │   └── ship-pr/
 └── misc/
+    ├── codex-wechat-cover/
     ├── configure-skill-invocation/
     └── fable-orchestrate/
 in-progress/

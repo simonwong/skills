@@ -1,0 +1,7 @@
+interface:
+  display_name: "Codex WeChat Cover"
+  short_description: "从文章提取封面关键词，灵活选色，用 image_gen 生成统一风格图片"
+  default_prompt: "使用 $codex-wechat-cover 从这篇文章提取封面关键词，按主题或自由搭配选色，并用 image_gen 生成封面。"
+
+policy:
+  allow_implicit_invocation: true
