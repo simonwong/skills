@@ -1,6 +1,6 @@
 interface:
   display_name: "Write Article"
-  short_description: "协作写简体中文长文，侧重公众号"
+  short_description: "写长文"
   default_prompt: "Use $write-article 来写这篇文章。"
 
 policy:
