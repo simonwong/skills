@@ -79,11 +79,11 @@ Skills 分为两种调用方式：
 | Skill | 调用方式 | 用途 |
 | --- | :---: | --- |
 | `rewrite-en2zh` | 👤 | 理解英文原意后，用自然的简体中文重新表达。 |
-| `write-article` | 👤 | 从想法、素材或草稿出发协作写文章：定选题方向、补素材、设计提纲与节奏、成文、修改，成文后调用 `writing-ai-check`。 |
+| `write-article` | 👤 | 从想法、素材或草稿出发协作写文章：定选题方向、补素材、设计提纲与节奏、成文、修改。需要时另行运行 `writing-ai-check`。 |
 | `writing-ai-check` | 🤖 | 按 23 条编号痕迹逐段找出 AI 味，直接交付定稿、改动清单和统计，会删掉观点的改动留给作者定，信息不增不减。只管 AI 味，不评内容和个人风格。 |
-| `write-tweet` | 👤 | 写 X 推文。按本次要求顺稿、压缩、重组或从素材成文，`short` / `long` 指定长短，成文和改写后调用 `writing-ai-check`。 |
+| `write-tweet` | 👤 | 写 X 推文。按本次要求顺稿、压缩、重组或从素材成文，`short` / `long` 指定长短。需要时另行运行 `writing-ai-check`。 |
 
-`writing-ai-check` 可独立使用。`write-article` 和 `write-tweet` 未安装它时仍可完成稿件，并说明专项检查未执行；需要完整组合流程时一并安装。
+三个写作 skill 互不调用，各自独立安装使用。稿件写完后需要清理 AI 味时，单独运行 `writing-ai-check`。
 
 <details>
 <summary><code>write-article</code> 与 <code>writing-ai-check</code> 的实现参考</summary>
