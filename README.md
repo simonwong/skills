@@ -151,7 +151,9 @@ evals/
 
 ## 推荐 Skills
 
-外部值得装的 Agent Skills，与本仓库互补，按需选用。条目少时先平铺；以后多了再按用途分组。
+外部值得装的 Agent Skills，与本仓库互补，按需选用。
+
+### Engineers
 
 #### [mattpocock/skills](https://github.com/mattpocock/skills) — 真正的工程师技能集合
 
@@ -160,6 +162,16 @@ Matt Pocock 的日常工程技能：grill、TDD、code review、架构改进等�
 #### [show-me](https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md)
 
 HumanLayer 的可视化沟通 skill。用伪代码、调用树、文件树、Mermaid、diff 和轻量 HTML 讲清当前话题，少写长文、多看结构。
+
+#### [pstack](https://github.com/cursor/plugins/tree/main/pstack)
+
+Cursor 工程师、React Compiler 核心成员 poteto 的 Cursor 插件。入口 `/poteto-mode` 按任务匹配 bug 修复、性能、重构、PR 看护等 23 个 playbook，再按需调用 `/how`、`/why`、`/interrogate`、`/tdd` 等 skill 和 23 条工程原则。目标是少写代码、先复现再修、用真实运行结果验证，并按模型长处分配多模型协作。
+
+#### [emilkowalski/skills](https://github.com/emilkowalski/skills)
+
+Emil Kowalski（Sonner 作者，曾在 Vercel、Linear）的 UI 工程 skills，以动画为主：选对缓动曲线、时长和属性，审查和改进现有动画，找值得加动效的位置；另有移动端原生手感、UI 库选型、多版本原型切换、Swift 等。解决 agent 在动效和界面细节上缺乏品味的问题。
+
+### Designers
 
 #### [impeccable](https://github.com/pbakaus/impeccable)
 
