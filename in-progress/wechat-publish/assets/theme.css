@@ -1,0 +1,395 @@
+/*
+ * 公众号正文样式。渲染时先把 var() 和 calc() 算成定值，再用 juice 内联到每个标签上；公众号会删掉 class 和 <style>。
+ * 能用：:root 里定义的 CSS 变量、calc()、元素、class、后代与子选择器、:first-child / :last-child / :nth-child。
+ * 不能用：::before / ::after、:hover、@media，写了也不会生效。
+ * 根节点是 .wx，正文所有选择器都挂在它下面。
+ *
+ * 公众号规范：正文不设 font-family（用公众号默认字体栈），不用 !important。
+ * 公众号编辑器会给 td/th 加四边框和表头底色，表格的每条边和底色都要写明。
+ *
+ * 暗色：读者端由微信的 mp-darkmode 算法自动转换，这里只写亮色。
+ * - 文字灰：≤ #595959 会被提亮（#333→163、#505050→150、#595959→141）；#5a–#8b 不变，在暗底上太暗；#8c 以上不变，仍可读。
+ *   两种模式下都要「越淡越次要」时，次要灰用 #505050、最淡的灰用 #8c8c8c（暗色下 150 对 140）。
+ * - 线条用半透明黑（rgba(0,0,0,.12)）：暗色下变成同透明度的浅灰，仍然是淡的。实色浅灰线（如 #e0e0e0）会被转成和正文一样亮。
+ * - 彩色字：深蓝、深绿、深橙、酒红会被明显提亮；饱和的紫色、蓝紫色几乎不提亮，在暗底上看不清。
+ * - 背景只用纯中性灰（R=G=B），会被压成深灰、文字自动提亮；带色相的浅底会变成浅灰块，文字仍是深色。
+ * - 背景写在容器上，文字节点只写 color，不用渐变。
+ */
+
+:root {
+  /* 颜色 */
+  --text: #333333;
+  --heading: #1a1a1a;
+  --muted: #505050;
+  --faint: #8c8c8c;
+  --accent: #3d5a80;
+  --rule: rgba(0, 0, 0, 0.12);
+  --rule-strong: rgba(0, 0, 0, 0.24);
+  --code-fill: #f3f3f3;
+  --pre-fill: #f6f6f6;
+
+  /* 正文 */
+  --font-size: 15px;
+  --line-height: 1.75;
+  --letter-spacing: 0.8px;
+  --block-gap: 18px;
+
+  /* 标题：只靠字号、字重和留白分层级，不加装饰线 */
+  --h1-size: calc(var(--font-size) * 1.4);
+  --h2-size: calc(var(--font-size) * 1.3);
+  --h3-size: calc(var(--font-size) + 2px);
+  --h4-size: var(--font-size);
+  --heading-weight: 600;
+
+  /* 列表：符号占一格，折行和文字对齐；用 em，读者调大字号时一起放大 */
+  --bullet-width: 1.1em;
+  --number-width: 1.7em;
+  --item-gap: 6px;
+
+  /* 小字：脚注、图注、表格、代码 */
+  --small-size: 12px;
+  --table-size: 13px;
+  --code-size: 13px;
+  --pre-size: 12px;
+}
+
+.wx {
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+  color: var(--text);
+  text-align: left;
+  word-break: break-word;
+}
+
+.wx p {
+  margin: 0 0 var(--block-gap);
+}
+
+/* 标题 */
+.wx h1,
+.wx h2,
+.wx h3,
+.wx h4 {
+  color: var(--heading);
+  font-weight: var(--heading-weight);
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.wx h1 {
+  font-size: var(--h1-size);
+  margin: calc(var(--block-gap) * 2.5) 0 var(--block-gap);
+}
+
+.wx h2 {
+  font-size: var(--h2-size);
+  margin: calc(var(--block-gap) * 2.8) 0 var(--block-gap);
+}
+
+.wx h3 {
+  font-size: var(--h3-size);
+  margin: calc(var(--block-gap) * 1.8) 0 calc(var(--block-gap) * 0.6);
+}
+
+.wx h4 {
+  font-size: var(--h4-size);
+  margin: calc(var(--block-gap) * 1.4) 0 calc(var(--block-gap) * 0.4);
+  color: var(--muted);
+}
+
+/* 标题紧跟下一级标题时收紧段前距，否则上一级标题像是悬空的 */
+.wx h2 + h3 {
+  margin-top: var(--block-gap);
+}
+
+.wx h3 + h4 {
+  margin-top: calc(var(--block-gap) * 0.8);
+}
+
+/* 强调 */
+.wx strong {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.wx em {
+  font-style: italic;
+}
+
+.wx del,
+.wx s {
+  color: var(--faint);
+}
+
+.wx hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  width: 40px;
+  margin: calc(var(--block-gap) * 2) auto;
+}
+
+/* 列表：符号是渲染时插入的文字（无序 .bullet、有序 .number），原生符号关掉 */
+.wx ul,
+.wx ol {
+  margin: 0 0 var(--block-gap);
+  padding: 0;
+  list-style: none;
+}
+
+.wx li {
+  display: block;
+  margin: var(--item-gap) 0;
+  padding-left: var(--bullet-width);
+  text-indent: calc(var(--bullet-width) * -1);
+}
+
+.wx ol > li {
+  padding-left: var(--number-width);
+  text-indent: calc(var(--number-width) * -1);
+}
+
+.wx li p {
+  margin: 0;
+}
+
+.wx li p + p {
+  margin-top: var(--item-gap);
+}
+
+/* 悬挂缩进只给列表项的第一行，后面的段落从文字左边对齐 */
+.wx li > p:not(:first-child) {
+  text-indent: 0;
+}
+
+.wx .bullet,
+.wx .number {
+  display: inline-block;
+  text-indent: 0;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.wx .bullet {
+  width: var(--bullet-width);
+  color: var(--faint);
+}
+
+.wx .number {
+  width: var(--number-width);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 嵌套列表和上一级的文字对齐 */
+.wx ul > li > ul,
+.wx ul > li > ol {
+  margin: var(--item-gap) 0 0 var(--bullet-width);
+}
+
+.wx ol > li > ul,
+.wx ol > li > ol {
+  margin: var(--item-gap) 0 0 var(--number-width);
+}
+
+/* 列表的悬挂缩进会被块级元素继承，列表里的代码块、引用、图片、表格要归零 */
+.wx pre.code,
+.wx blockquote,
+.wx figure,
+.wx .table-wrap {
+  text-indent: 0;
+}
+
+/* 引用：全文唯一的装饰线 */
+.wx blockquote {
+  margin: 0 0 var(--block-gap);
+  padding: 0 0 0 14px;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+}
+
+.wx blockquote p {
+  margin: 0;
+}
+
+.wx blockquote p + p {
+  margin-top: 8px;
+}
+
+/* 链接：公众号内链保留可点，其余外链渲染成「文字[n]」，网址进文末引用链接 */
+.wx a,
+.wx .link {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* 标题里的外链保持标题色 */
+.wx h1 .link,
+.wx h2 .link,
+.wx h3 .link,
+.wx h4 .link {
+  color: var(--heading);
+}
+
+.wx .footnote-ref {
+  color: var(--faint);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.wx .footnotes {
+  margin-top: calc(var(--block-gap) * 2.2);
+  font-size: var(--small-size);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.wx .footnotes-title {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.wx .footnote-item {
+  margin: 0 0 6px;
+}
+
+.wx .footnote-num {
+  color: var(--faint);
+}
+
+/* 只让网址任意断行，标题里的英文单词不从中间断开 */
+.wx .footnote-item em {
+  font-style: normal;
+  color: var(--faint);
+  word-break: break-all;
+  letter-spacing: 0;
+}
+
+/* 图片 */
+.wx figure {
+  margin: calc(var(--block-gap) * 1.3) 0;
+}
+
+.wx img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.wx figcaption {
+  margin-top: 8px;
+  font-size: var(--small-size);
+  line-height: 1.5;
+  color: var(--faint);
+  text-align: center;
+}
+
+/* 表格：只留横线；单元格按词断行，每列至少 5 个字宽，放不下时整张表左右滑动 */
+.wx .table-wrap {
+  margin: 0 0 var(--block-gap);
+  overflow-x: auto;
+}
+
+.wx table {
+  width: 100%;
+  border-collapse: collapse;
+  word-break: normal;
+  font-size: var(--table-size);
+  line-height: 1.6;
+}
+
+.wx th,
+.wx td {
+  min-width: 5em;
+  padding: 7px 8px;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  background-color: transparent;
+}
+
+.wx th {
+  color: var(--heading);
+  font-weight: 600;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.wx td:first-child,
+.wx th:first-child {
+  padding-left: 0;
+}
+
+/* 行内代码：等宽字体只用在代码上 */
+.wx code {
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: var(--code-size);
+  padding: 1px 4px;
+  margin: 0 2px;
+  background: var(--code-fill);
+  color: #444444;
+  border-radius: 3px;
+  letter-spacing: 0;
+}
+
+/* 代码块：不换行，左右滑动 */
+.wx pre.code {
+  margin: 0 0 var(--block-gap);
+  padding: 14px 16px;
+  background: var(--pre-fill);
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.wx pre.code code {
+  display: block;
+  font-size: var(--pre-size);
+  line-height: 1.7;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* 代码高亮：颜色经 mp-darkmode 实测，亮色和暗色下对比度都在 4.3 以上 */
+.wx .hljs-comment,
+.wx .hljs-quote {
+  color: var(--faint);
+}
+
+.wx .hljs-keyword,
+.wx .hljs-selector-tag,
+.wx .hljs-literal,
+.wx .hljs-built_in {
+  color: #880e4f;
+}
+
+.wx .hljs-string,
+.wx .hljs-regexp,
+.wx .hljs-addition {
+  color: #2f6f44;
+}
+
+.wx .hljs-number,
+.wx .hljs-meta {
+  color: #944f00;
+}
+
+.wx .hljs-attr,
+.wx .hljs-attribute,
+.wx .hljs-variable,
+.wx .hljs-template-variable,
+.wx .hljs-name,
+.wx .hljs-title,
+.wx .hljs-section,
+.wx .hljs-type {
+  color: #0a3069;
+}
+
+.wx .hljs-deletion {
+  color: #7c2d12;
+}

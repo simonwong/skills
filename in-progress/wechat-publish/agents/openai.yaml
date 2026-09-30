@@ -1,0 +1,7 @@
+interface:
+  display_name: "WeChat Publish"
+  short_description: "本地预览公众号排版（含暗色模式），上传图片并同步到草稿箱"
+  default_prompt: "使用 $wechat-publish 预览这篇文章的公众号排版。"
+
+policy:
+  allow_implicit_invocation: false
