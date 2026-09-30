@@ -6,6 +6,8 @@ The current set forms a Simplified Chinese writing workflow:
 
 `collect (style-extract, material-ingest) -> retrieve (material-retrieve) -> create (compose) -> polish (rewrite, title-gen)`
 
+`wechat-publish` is standalone: it does not read or write `writing-workspace/`.
+
 ## Shared Data Contract
 
 The connected writing workflow skills read and write `./writing-workspace/` at runtime.

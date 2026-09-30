@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>公众号预览</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #eef0f3;
+    --panel: #ffffff;
+    --line: #dde1e6;
+    --text: #1f2328;
+    --muted: #6e7781;
+    --accent: #07c160;
+    --danger: #cf222e;
+    --shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    --md-heading: #0550ae;
+    --md-mark: #8250df;
+    --md-code: #953800;
+    --md-link: #116329;
+    --md-quote: #6e7781;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #111214;
+      --panel: #1c1d20;
+      --line: #2e3035;
+      --text: #d7d9dc;
+      --muted: #8b9098;
+      --danger: #ff7b72;
+      --shadow: 0 1px 3px rgba(0, 0, 0, .4);
+      --md-heading: #79c0ff;
+      --md-mark: #d2a8ff;
+      --md-code: #ffa657;
+      --md-link: #7ee787;
+      --md-quote: #8b949e;
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--text);
+    font: 13px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header .name { font-weight: 600; font-size: 14px; }
+  header .info { color: var(--muted); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  header .info.error { color: var(--danger); white-space: normal; }
+  button {
+    font: inherit;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+    cursor: pointer;
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:disabled { opacity: .5; cursor: default; }
+  .seg { display: flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; padding: 4px 12px; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--panel); }
+  main {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 460px;
+  }
+  .left {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+  }
+  #hints {
+    margin: 0;
+    padding: 8px 24px;
+    list-style: none;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    max-height: 30%;
+    overflow: auto;
+  }
+  #hints li + li { margin-top: 2px; }
+  #hints .line { font-variant-numeric: tabular-nums; margin-right: 8px; }
+  #source {
+    flex: 1;
+    min-height: 0;
+    margin: 0;
+    padding: 20px 24px;
+    overflow: auto;
+    font: 13px/1.7 "SF Mono", Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  #source .hljs-section { color: var(--md-heading); font-weight: 600; }
+  #source .hljs-strong { font-weight: 600; }
+  #source .hljs-emphasis { font-style: italic; }
+  #source .hljs-bullet, #source .hljs-meta, #source .hljs-attr { color: var(--md-mark); }
+  #source .hljs-code { color: var(--md-code); }
+  #source .hljs-link, #source .hljs-string { color: var(--md-link); }
+  #source .hljs-quote { color: var(--md-quote); }
+  .right { overflow: auto; }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 42px;
+    background: var(--bg);
+  }
+  .view {
+    padding: 6px 0 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .card, .phone {
+    flex: none;
+    width: 375px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .card { background: var(--panel); }
+  .card img, .card .no-cover { display: block; width: 100%; aspect-ratio: 2.35 / 1; object-fit: cover; background: var(--line); }
+  .card .no-cover { display: flex; align-items: center; justify-content: center; color: var(--muted); }
+  .card .text { padding: 10px 12px; }
+  .card .title { font-size: 15px; font-weight: 600; }
+  .card .summary { color: var(--muted); margin-top: 4px; }
+  #view-card { gap: 14px; }
+  .share { width: 375px; padding: 12px 14px; border-radius: 8px; background: var(--panel); box-shadow: var(--shadow); }
+  .share .title { font-size: 15px; font-weight: 600; }
+  .share .row { display: flex; gap: 12px; margin-top: 6px; }
+  .share .summary { flex: 1; min-width: 0; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .share img { flex: none; width: 56px; height: 56px; object-fit: cover; background: var(--line); }
+  .crop-note { width: 375px; color: var(--muted); margin: 0; }
+  .phone { background: #fff; }
+  .phone.dark { background: #191919; }
+  .phone iframe { display: block; width: 100%; height: 667px; border: 0; }
+</style>
+</head>
+<body>
+<header>
+  <span class="name" id="name"></span>
+  <span class="info" id="info">加载中…</span>
+  <button id="copy">复制 HTML</button>
+  <button id="publish" class="primary">发布到草稿</button>
+</header>
+<main>
+  <div class="left">
+    <ul id="hints" hidden></ul>
+    <pre id="source"></pre>
+  </div>
+  <div class="right">
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="视图">
+        <button data-view="article">正文</button>
+        <button data-view="card">消息卡片</button>
+      </div>
+      <div class="seg" role="group" aria-label="正文配色" id="modes">
+        <button data-mode="light">亮色</button>
+        <button data-mode="dark">暗色</button>
+      </div>
+    </div>
+    <div class="view" id="view-article">
+      <div class="phone" id="phone"><iframe id="frame" title="正文预览" scrolling="no"></iframe></div>
+    </div>
+    <div class="view" id="view-card" hidden>
+      <div class="card">
+        <img id="cover" alt="">
+        <div class="no-cover" id="no-cover" hidden>缺少封面</div>
+        <div class="text"><div class="title" id="card-title"></div><div class="summary" id="card-summary"></div></div>
+      </div>
+      <div class="share">
+        <div class="title" id="share-title"></div>
+        <div class="row"><div class="summary" id="share-summary"></div><img id="cover-square" alt=""></div>
+      </div>
+      <p class="crop-note" id="crop-note"></p>
+    </div>
+  </div>
+</main>
+<script>
+  const $ = (id) => document.getElementById(id);
+  let doc;
+  let note = "";
+  let mode = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  let view = "article";
+
+  // 暗色时在 iframe 里跑 mp-darkmode，和微信读者端的转换一致；背景 #191919 是微信暗色底色。
+  // 字体用公众号正文的默认字体栈，主题里不设 font-family。
+  // 再模拟公众号编辑器给表格的默认样式，主题没写明的边框和底色会在这里露出来。
+  function page(d) {
+    const dark = mode === "dark"
+      ? `<script src="/darkmode.js"><\/script><script>
+Darkmode.run(document.body.querySelectorAll("*"), { mode: "dark", needJudgeFirstPage: false });
+<\/script>`
+      : "";
+    return `<!doctype html><meta charset="utf-8"><meta name="referrer" content="no-referrer">
+<style>html,body{overflow:hidden}body{margin:0;background:${mode === "dark" ? "#191919" : "#fff"}}.page{padding:22px 16px 48px;font-family:'mp-quote',PingFang SC,system-ui,-apple-system,BlinkMacSystemFont,Helvetica Neue,Hiragino Sans GB,Microsoft YaHei UI,Microsoft YaHei,Arial,sans-serif}.page td,.page th{padding:5px 10px;border:1px solid #ddd}.page th{border-top:1px solid #bbb;background-color:#f7f7f7}.page tr:first-child th{border-top-width:2px}</style>
+<body><div class="page">${d.html}</div>${dark}</body>`;
+  }
+
+  function showInfo() {
+    const info = $("info");
+    const parts = [];
+    if (doc) {
+      const { local, remote, mmbiz } = doc.images;
+      parts.push(`本地图片 ${local}`, `外链图片 ${remote}`, `公众号图片 ${mmbiz}`, `正文 ${doc.textLength} 字`, `HTML ${doc.html.length} 字符`);
+    }
+    const errors = [...(doc?.errors ?? []), ...(note.startsWith("!") ? [note.slice(1)] : [])];
+    info.className = errors.length ? "info error" : "info";
+    info.textContent = errors.length ? errors.join("；") : [note, ...parts].filter(Boolean).join(" · ");
+  }
+
+  function showArticle() {
+    document.querySelectorAll("[data-mode]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === mode)));
+    $("phone").className = `phone ${mode}`;
+    // iframe 自身不滚动，高度始终跟随正文（图片、字体晚加载也会同步），只由右栏滚动。
+    // 重设 srcdoc 时保持旧高度，右栏滚动位置不会跳。
+    const frame = $("frame");
+    frame.onload = () => {
+      const inner = frame.contentDocument;
+      const fit = () => (frame.style.height = inner.querySelector(".page").offsetHeight + "px");
+      fit();
+      new frame.contentWindow.ResizeObserver(fit).observe(inner.querySelector(".page"));
+    };
+    frame.srcdoc = page(doc);
+  }
+
+  // 写法提示只在这里显示，不进正文。
+  function showHints(hints) {
+    const list = $("hints");
+    list.replaceChildren(...hints.map((h) => {
+      const li = document.createElement("li");
+      const line = document.createElement("span");
+      line.className = "line";
+      line.textContent = h.line ? `第 ${h.line} 行` : "全文";
+      li.append(line, h.text);
+      return li;
+    }));
+    list.hidden = !hints.length;
+  }
+
+  async function load() {
+    const res = await fetch("/api/doc");
+    const d = await res.json();
+    if (d.error) {
+      note = "!" + d.error;
+      return showInfo();
+    }
+    doc = d;
+    document.title = `预览 · ${d.name}`;
+    $("name").textContent = d.name;
+    const src = $("source");
+    const top = src.scrollTop;
+    src.innerHTML = d.markdown;
+    src.scrollTop = top;
+    showHints(d.hints);
+    $("cover").hidden = !d.cover;
+    $("no-cover").hidden = Boolean(d.cover);
+    if (d.cover) {
+      $("cover").src = d.cover;
+      $("cover-square").src = d.cover;
+    }
+    $("card-title").textContent = $("share-title").textContent = d.title;
+    $("card-summary").textContent = $("share-summary").textContent = d.summary;
+    $("publish").hidden = d.readonly;
+    showArticle();
+    showInfo();
+  }
+
+  document.querySelectorAll("[data-mode]").forEach((b) => {
+    b.onclick = () => {
+      mode = b.dataset.mode;
+      if (doc) showArticle();
+    };
+  });
+
+  // 正文和消息卡片分两个视图，配色切换只作用于正文。
+  function showView() {
+    document.querySelectorAll("[data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === view)));
+    $("view-article").hidden = view !== "article";
+    $("view-card").hidden = view !== "card";
+    $("modes").style.visibility = view === "article" ? "visible" : "hidden";
+  }
+  document.querySelectorAll("[data-view]").forEach((b) => {
+    b.onclick = () => {
+      view = b.dataset.view;
+      showView();
+    };
+  });
+  showView();
+
+  // 公众号编辑器读 text/html；text/plain 放纯文字，粘到普通输入框时不会出现一堆标签。
+  // 3.35:1 的封面按发布时的裁剪显示：消息列表取左边 2.35:1，转发卡片取右边 1:1；其他比例居中裁剪。
+  $("cover").onload = () => {
+    const img = $("cover");
+    const combo = Math.abs(img.naturalWidth / img.naturalHeight - 3.35) <= 0.03;
+    img.style.objectPosition = combo ? "left center" : "center";
+    $("cover-square").style.objectPosition = combo ? "right center" : "center";
+    $("crop-note").textContent = combo
+      ? "封面是 3.35:1 拼接图：消息列表用左边 2.35:1，转发卡片和次条用右边 1:1"
+      : "消息列表和转发卡片都由公众号居中裁剪";
+  };
+
+  $("copy").onclick = async () => {
+    if (!doc) return;
+    try {
+      const text = $("frame").contentDocument.querySelector(".page").innerText;
+      await navigator.clipboard.write([new ClipboardItem({
+        "text/html": new Blob([doc.html], { type: "text/html" }),
+        "text/plain": new Blob([text], { type: "text/plain" }),
+      })]);
+      note = doc.images.local ? "已复制，但本地图片粘贴后不会显示，先发布一次再复制" : "已复制正文 HTML";
+    } catch (err) {
+      note = "!复制失败：" + err.message;
+    }
+    showInfo();
+  };
+
+  $("publish").onclick = async () => {
+    if (!confirm("上传图片和封面、把公众号图片地址写回 md，并同步草稿？")) return;
+    const btn = $("publish");
+    btn.disabled = true;
+    btn.textContent = "发布中…";
+    try {
+      const res = await fetch("/api/publish", { method: "POST" });
+      const r = await res.json();
+      note = r.error
+        ? "!" + r.error
+        : `${r.action === "created" ? "已新建草稿" : "已更新草稿"}，上传正文图片 ${r.uploaded} 张${r.coverUploaded ? "、封面 1 张" : ""}。原创声明接口不支持，群发前在后台勾选`;
+      if (!r.error && r.warnings.length) note += `（注意：${r.warnings.join("；")}）`;
+    } catch (err) {
+      note = "!" + err.message;
+    }
+    btn.disabled = false;
+    btn.textContent = "发布到草稿";
+    await load();
+  };
+
+  // 服务重启或预览页更新后整页重载，否则页面一直跑旧脚本；md 和样式改动只重新取内容。
+  const events = new EventSource("/events");
+  let boot;
+  events.addEventListener("boot", (e) => {
+    if (boot && boot !== e.data) location.reload();
+    boot = e.data;
+  });
+  events.onmessage = (e) => {
+    if (e.data === "reload") return location.reload();
+    note = "";
+    load();
+  };
+  load();
+</script>
+</body>
+</html>
