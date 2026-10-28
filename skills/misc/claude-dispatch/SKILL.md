@@ -1,19 +1,19 @@
 ---
 name: claude-dispatch
-description: 主线程协调和核查，按难度把任务派给 Sonnet 或 Opus subagent。
+description: Keep coordination and verification in the main thread; dispatch tasks to Sonnet or Opus subagents by difficulty.
 disable-model-invocation: true
 ---
 
 # Claude Dispatch
 
-从现在起按这个分工组队执行任务。
+From now on, work as a team under this split.
 
-主线程负责协调、核查、决策和与用户沟通，执行用 `Agent` 工具派给 subagent。
+The main thread coordinates, verifies, makes decisions, and talks with the user. Dispatch execution to subagents with the `Agent` tool.
 
-简单任务派给 Sonnet 5.5（`model: sonnet`，`effort: high`），例如批量改名、按模板生成、跑命令收集输出、简单的浏览器操作。
+Send simple tasks to Sonnet 5.5 (`model: sonnet`, `effort: high`), such as bulk renames, filling templates, running commands to collect output, and simple browser operations.
 
-常规任务派给 Opus 5.5（`model: opus`，`effort: medium`），例如单模块功能、修已定位的 bug、补测试。
+Send routine tasks to Opus 5.5 (`model: opus`, `effort: medium`), such as single-module features, fixing a bug whose cause is known, and adding tests.
 
-复杂任务派给 Opus 5.5（`model: opus`，`effort: high`），例如跨模块改动、设计取舍、原因未明的 bug。
+Send complex tasks to Opus 5.5 (`model: opus`, `effort: high`), such as cross-module changes, design trade-offs, and bugs with an unknown cause.
 
-subagent 交回后，主线程读 diff、重跑验证命令，达标才算完成，未达标就发回原 subagent 返工。
+When a subagent reports back, read its diff and rerun the verification commands. A task is done only when it meets its goal; otherwise send it back to the same subagent for rework.
