@@ -2,6 +2,10 @@
 name: ship-pr
 description: Commit outstanding work in batches, then open, merge, and clean up a pull request.
 disable-model-invocation: true
+license: MIT
+metadata:
+  author: simonwong
+  version: "1.0.0"
 ---
 
 # Ship PR

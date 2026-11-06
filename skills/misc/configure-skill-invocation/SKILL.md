@@ -2,6 +2,10 @@
 name: configure-skill-invocation
 description: Make selected global or project skills available only through explicit invocation.
 disable-model-invocation: true
+license: MIT
+metadata:
+  author: simonwong
+  version: "1.0.0"
 ---
 
 # Configure Skill Invocation
