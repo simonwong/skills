@@ -1,14 +1,16 @@
 ---
 name: write-tweet
-description: 写简体中文 X 推文，参数 short / long 指定长短。用于“顺一下我写的这段”“帮我压成一条”“把这篇整理成推文”“写条推文”。
+description: 已弃用，已迁移到 https://github.com/simonwong/writing-skills。写简体中文 X 推文，参数 short / long 指定长短。用于“顺一下我写的这段”“帮我压成一条”“把这篇整理成推文”“写条推文”。
 license: MIT
 disable-model-invocation: true
 metadata:
   author: simonwong
-  version: "0.3.0"
+  version: "0.3.1"
 ---
 
 # X 推文写作
+
+> 已弃用：这个 skill 已迁移到 https://github.com/simonwong/writing-skills，这里不再更新。
 
 一条推文围绕一个主要分享点展开：一个判断、一个结果、一件作品、一个观察或一个疑问都可以；几个关联的观察可以放在一条里，无关的内容分开。参考各管一层：[个人风格](references/voice.md) 管句子和说话位置，[结构骨架](references/formats.md) 管段落顺序，[开头](references/hooks.md) 管入口。参考里的方法用于启发，不适用时跳过，以这条推文为准；示例只演示写法，事实来自当前材料。
 

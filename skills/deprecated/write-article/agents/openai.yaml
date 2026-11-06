@@ -1,6 +1,6 @@
 interface:
   display_name: "Write Article"
-  short_description: "写长文"
+  short_description: "（已弃用）写长文"
   default_prompt: "Use $write-article 来写这篇文章。"
 
 policy:

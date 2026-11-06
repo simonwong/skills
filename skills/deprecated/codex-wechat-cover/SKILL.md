@@ -1,9 +1,12 @@
 ---
 name: codex-wechat-cover
-description: 从公众号文章提取封面关键词与短句，按主题或自由搭配配色，使用 `image_gen` 生成统一 shader 风格的封面。适用于公众号封面、封面文案提炼和封面提示词请求。
+description: 已弃用，已迁移到 https://github.com/simonwong/writing-skills。从公众号文章提取封面关键词与短句，按主题或自由搭配配色，使用 `image_gen` 生成统一 shader 风格的封面。适用于公众号封面、封面文案提炼和封面提示词请求。
+disable-model-invocation: true
 ---
 
 # Codex WeChat Cover
+
+> 已弃用：这个 skill 已迁移到 https://github.com/simonwong/writing-skills，这里不再更新。
 
 先从文章提炼封面文案，再用 `image_gen` 生成封面。视觉风格固定，配色与文案随文章变化。
 

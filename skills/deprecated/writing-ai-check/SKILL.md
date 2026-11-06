@@ -1,13 +1,16 @@
 ---
 name: writing-ai-check
-description: 找出并改掉简体中文稿件的 AI 味，交付定稿和改动清单。仅在用户或调用方明确写出 /writing-ai-check 时使用。
+description: 已弃用，已迁移到 https://github.com/simonwong/writing-skills。找出并改掉简体中文稿件的 AI 味，交付定稿和改动清单。仅在用户或调用方明确写出 /writing-ai-check 时使用。
 license: MIT
+disable-model-invocation: true
 metadata:
   author: simonwong
-  version: "0.8.0"
+  version: "0.8.1"
 ---
 
 # 写作 AI 味检查
+
+> 已弃用：这个 skill 已迁移到 https://github.com/simonwong/writing-skills，这里不再更新。
 
 逐段找出稿件里可定位的 AI 味，按编号改掉，交付定稿和改动清单。会删掉观点或拿不准的地方列为待定，由作者定。
 

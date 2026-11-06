@@ -1,14 +1,16 @@
 ---
 name: write-article
-description: 写长文。用于“写篇文章”“整理成文”或“改这篇草稿”。
+description: 已弃用，已迁移到 https://github.com/simonwong/writing-skills。写长文。用于“写篇文章”“整理成文”或“改这篇草稿”。
 license: MIT
 disable-model-invocation: true
 metadata:
   author: simonwong
-  version: "0.7.0"
+  version: "0.7.1"
 ---
 
 # 文章写作
+
+> 已弃用：这个 skill 已迁移到 https://github.com/simonwong/writing-skills，这里不再更新。
 
 先弄清这次真正想写什么，再用合适的素材、结构和表达把它写出来。参考文件里的方法用于启发和发现问题；某个方法不适用时跳过，以这篇文章为准。
 

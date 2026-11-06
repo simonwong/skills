@@ -1,7 +1,7 @@
 interface:
   display_name: "Writing AI Check"
-  short_description: "找出并改掉简体中文稿件的 AI 味"
+  short_description: "（已弃用）找出并改掉简体中文稿件的 AI 味"
   default_prompt: "Use $writing-ai-check 检查这篇稿件的 AI 味。"
 
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false
