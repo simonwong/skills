@@ -3,6 +3,10 @@ name: fable-orchestrate
 description: Keep planning, verification, and hard problems in the main thread; dispatch implementation to subagents.
 disable-model-invocation: true
 argument-hint: "[opus|sonnet|gpt|herdr <kind>]"
+license: MIT
+metadata:
+  author: simonwong
+  version: "1.0.0"
 ---
 
 # Fable Orchestrate

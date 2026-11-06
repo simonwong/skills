@@ -2,6 +2,10 @@
 name: claude-dispatch
 description: Keep coordination and verification in the main thread; dispatch tasks to Sonnet or Opus subagents by difficulty.
 disable-model-invocation: true
+license: MIT
+metadata:
+  author: simonwong
+  version: "1.0.0"
 ---
 
 # Claude Dispatch

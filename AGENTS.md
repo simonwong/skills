@@ -4,13 +4,13 @@
 
 This repository contains composable skills organized by purpose:
 
-- `skills/writing/`: Simplified Chinese writing skills.
+- `skills/deprecated/`: Deprecated writing and WeChat skills, moved to https://github.com/simonwong/writing-skills.
 - `skills/engineering/`: Code quality and engineering workflow skills.
 - `skills/misc/`: General-purpose agent utilities.
 
-Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`. Unfinished skills live at `in-progress/<skill-name>/` and are not published. Test cases live at `evals/<skill-name>/` and are not installed with the skill.
+Each skill lives at `skills/<category>/<skill-name>/`. Keep its `SKILL.md` and supporting resources together. Category directories organize skills and must not contain a `SKILL.md`. Test cases live at `evals/<skill-name>/` and are not installed with the skill.
 
-Before changing anything under `skills/writing/`, read `skills/writing/AGENTS.md` for writing-specific rules. Before changing anything under `in-progress/`, read `in-progress/AGENTS.md` for the shared data contract and dependency graph.
+Before changing anything under `skills/deprecated/`, read `skills/deprecated/AGENTS.md`.
 
 ## Working Rules
 
