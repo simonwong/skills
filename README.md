@@ -48,20 +48,11 @@ npx skills@latest add simonwong/skills
 </details>
 
 <details open>
-<summary><b>主线程该指挥，不该亲自写代码</b></summary>
-
-<br>
-
-`fable-orchestrate` 让主线程只做需求澄清、方案拆解、任务分发和验收，实现类工作下发给 Opus 或 Sonnet subagent。
-
-</details>
-
-<details open>
 <summary><b>所有任务都用同一个模型，贵且慢</b></summary>
 
 <br>
 
-`claude-dispatch` 让主线程保留代码编辑和判断，只把自成一体的任务派出去：查找和读日志给 Haiku，调研和简单的浏览器操作给 Sonnet medium，复杂的浏览器操作和计算机使用给 Opus medium。能拆成独立几块的改动并行派给 Opus，靠检查命令验收。
+`claude-dispatch` 让主线程保留代码编辑和判断，只把自成一体的任务派出去：查找和读日志给 Haiku，调研和简单的浏览器操作给 Sonnet medium，复杂的浏览器操作和计算机使用给 Opus medium。能拆成独立几块的改动并行派出去，范围明确的块给 Sonnet，开放的块给 Opus，靠检查命令验收。
 
 </details>
 
@@ -89,9 +80,8 @@ Skills 分为两种调用方式：
 | --- | :---: | --- | --- |
 | `claude-dispatch` | 👤 | 主线程保留代码编辑和判断，把查找、调研、浏览器操作和可并行的独立改动派给 Haiku、Sonnet 或 Opus subagent。 | `/claude-dispatch` |
 | `configure-skill-invocation` | 👤 | 选择全局或项目 skills，将其改为仅显式调用。 | `$configure-skill-invocation global`<br>`$configure-skill-invocation project` |
-| `fable-orchestrate` | 👤 | 主线程只做需求澄清、方案拆解、任务分发、结果验收和难题攻关，实现类工作下发给 subagent。 | `/fable-orchestrate`<br>`/fable-orchestrate sonnet` |
 
-`configure-skill-invocation` 不传 `global` 或 `project` 时，会先询问作用范围，再列出候选项供选择。`claude-dispatch` 与 `fable-orchestrate` 仅供 Claude Code 使用。日常用 Opus 会话配 `claude-dispatch`；大型重构、迁移、架构规划或需要带很多 subagent 时，换 Fable 会话配 `fable-orchestrate`。`fable-orchestrate` 不传参数时默认用 `opus`，也可以传 `sonnet`。
+`configure-skill-invocation` 不传 `global` 或 `project` 时，会先询问作用范围，再列出候选项供选择。`claude-dispatch` 仅供 Claude Code 使用，日常在 Opus 会话里调用；大型重构、迁移、架构规划或需要带很多 subagent 时，换成 Fable 会话再调用。
 
 ## 仓库结构
 
@@ -102,8 +92,7 @@ skills/
 │   └── ship-pr/
 └── misc/
     ├── claude-dispatch/
-    ├── configure-skill-invocation/
-    └── fable-orchestrate/
+    └── configure-skill-invocation/
 ```
 
 每个叶子目录都是一个可独立安装的 skill；分组目录本身不包含 `SKILL.md`。
