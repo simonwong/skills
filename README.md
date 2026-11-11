@@ -135,7 +135,7 @@ Emil Kowalski（Sonner 作者，曾在 Vercel、Linear）的 UI 工程 skills，
 
 ## Find Me
 
-- [X / Twitter](https://x.com/simonwongio)
+- [X / Twitter](https://x.com/simon_wong)
 - [GitHub](https://github.com/simonwong)
 
 ## License
